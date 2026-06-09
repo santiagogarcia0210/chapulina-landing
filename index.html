@@ -304,6 +304,18 @@
     animation: scrollDown 1.8s ease-in-out infinite;
   }
 
+  .hero-bg-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 900px;
+    opacity: 0.08;
+    pointer-events: none;
+    filter: brightness(10);
+  }
+
   @keyframes scrollDown {
     0%, 100% { opacity: 0.3; transform: scaleY(1); }
     50% { opacity: 0.8; transform: scaleY(0.6); }
@@ -945,7 +957,7 @@
 
     <!-- LOGO -->
     <a href="https://chapulinatuc.mitiendanube.com/productos" class="brand">
-      <img src="fotos landing/logo.png" alt="Chapulina" style="height:48px;width:auto;display:block;object-fit:contain;">
+      <img src="fotos landing/logo.png" alt="Chapulina" style="height:52px;width:auto;display:block;object-fit:contain;">
     </a>
 
     <!-- NAV DERECHA -->
@@ -971,7 +983,7 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-bg-text">Chapulina</div>
+  <img src="fotos landing/logo.png" class="hero-bg-logo" alt="">
   <div class="hero-content">
     <p class="hero-tag">Nueva colección · Otoño 2025</p>
     <h1 class="hero-titulo">Vestite<br>como <em>quieras<br>sentirte</em></h1>
