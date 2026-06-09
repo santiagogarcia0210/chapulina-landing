@@ -39,7 +39,22 @@
     letter-spacing: 0.12em;
     padding: 8px 20px;
     font-weight: 300;
+    position: relative;
+    height: 34px;
+    overflow: hidden;
   }
+
+  .topbar-msg {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.6s ease;
+  }
+
+  .topbar-msg.activo { opacity: 1; }
 
   /* ─── HEADER / NAV ─── */
   header {
@@ -920,7 +935,9 @@
 
 <!-- BARRA SUPERIOR -->
 <div class="topbar">
-  ✦ &nbsp; ENVÍOS A TODO EL PAÍS &nbsp; · &nbsp; PRECIOS EN EFECTIVO / TRANSFERENCIA &nbsp; · &nbsp; CONSULTÁ OPCIONES EN TARJETA &nbsp; ✦
+  <div class="topbar-msg activo">✦ &nbsp; ENVÍOS A TODO EL PAÍS &nbsp; ✦</div>
+  <div class="topbar-msg">✦ &nbsp; PRECIOS EN EFECTIVO / TRANSFERENCIA &nbsp; ✦</div>
+  <div class="topbar-msg">✦ &nbsp; CONSULTÁ OPCIONES EN TARJETA &nbsp; ✦</div>
 </div>
 
 <!-- HEADER -->
@@ -1244,6 +1261,17 @@
 </footer>
 
 <script>
+  // Carrusel topbar
+  (function() {
+    const msgs = document.querySelectorAll('.topbar-msg');
+    let current = 0;
+    setInterval(function() {
+      msgs[current].classList.remove('activo');
+      current = (current + 1) % msgs.length;
+      msgs[current].classList.add('activo');
+    }, 3000);
+  })();
+
   // Chips de filtro
   document.querySelectorAll('.cat-chip').forEach(chip => {
     chip.addEventListener('click', function(e) {
