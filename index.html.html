@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chapulina — Moda Femenina</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --negro: #1a1a1a;
+    --blanco: #ffffff;
+    --crema: #f7f3ee;
+    --verde-oscuro: #6b1228;
+    --verde-medio: #8b1a35;
+    --verde-claro: #b5556a;
+    --verde-suave: #e8c4cc;
+    --verde-palido: #f9edf0;
+    --acento: #b5724a;
+    --gris-texto: #555;
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'Montserrat', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--negro);
+    background: var(--blanco);
+    overflow-x: hidden;
+  }
+
+  /* ─── BARRA SUPERIOR ─── */
+  .topbar {
+    background: var(--verde-oscuro);
+    color: var(--verde-suave);
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    padding: 8px 20px;
+    font-weight: 300;
+  }
+
+  /* ─── HEADER / NAV ─── */
+  header {
+    background: var(--blanco);
+    border-bottom: 1px solid #e8e2da;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .header-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    height: 72px;
+  }
+
+  .nav-left, .nav-right {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-right { justify-content: flex-end; }
+
+  .brand {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 28px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--verde-oscuro);
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  nav a {
+    text-decoration: none;
+    color: var(--negro);
+    font-size: 11.5px;
+    letter-spacing: 0.1em;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 4px 0;
+    border-bottom: 1.5px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  nav a:hover { color: var(--verde-medio); border-bottom-color: var(--verde-medio); }
+
+  /* ─── DROPDOWN ─── */
+  .dropdown { position: relative; }
+
+  .dropdown-toggle {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .dropdown-toggle::after {
+    content: '';
+    display: inline-block;
+    width: 0; height: 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid currentColor;
+    margin-top: 2px;
+    transition: transform 0.2s;
+  }
+
+  .dropdown:hover .dropdown-toggle::after { transform: rotate(180deg); }
+
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 16px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--blanco);
+    border: 1px solid #e0dbd4;
+    border-top: 2px solid var(--verde-medio);
+    min-width: 220px;
+    padding: 8px 0;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+  }
+
+  .dropdown:hover .dropdown-menu { display: block; }
+
+  .dropdown-menu a {
+    display: block;
+    padding: 9px 24px;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    border-bottom: none;
+    color: var(--gris-texto);
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .dropdown-menu a:hover {
+    background: var(--verde-palido);
+    color: var(--verde-oscuro);
+  }
+
+  .dropdown-menu .ver-todo {
+    font-weight: 600;
+    color: var(--verde-medio);
+    border-bottom: 1px solid #e8e2da;
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+  }
+
+  /* ─── ICONOS NAV ─── */
+  .nav-icons { display: flex; gap: 20px; align-items: center; }
+
+  .nav-icon {
+    background: none; border: none;
+    cursor: pointer; padding: 4px;
+    color: var(--negro);
+    font-size: 18px;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .nav-icon:hover { color: var(--verde-medio); }
+
+  .cart-badge {
+    position: absolute; top: -4px; right: -6px;
+    background: var(--verde-medio);
+    color: var(--blanco);
+    border-radius: 50%; width: 16px; height: 16px;
+    font-size: 9px; display: flex; align-items: center; justify-content: center;
+    font-weight: 600;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    height: 92vh;
+    min-height: 580px;
+    background: linear-gradient(135deg, #3d0814 0%, #6b1228 50%, #8b1a35 100%);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: var(--font-display);
+    font-size: clamp(120px, 18vw, 260px);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.06);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.05em;
+  }
+
+  .hero-content {
+    position: relative;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 64px 80px;
+    width: 100%;
+  }
+
+  .hero-tag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--verde-suave);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .hero-titulo {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 7vw, 90px);
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--blanco);
+    margin-bottom: 24px;
+  }
+
+  .hero-titulo em { font-style: italic; color: var(--verde-suave); }
+
+  .hero-subtitulo {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.08em;
+    margin-bottom: 40px;
+    font-weight: 300;
+    max-width: 380px;
+  }
+
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+
+  .btn-primario {
+    background: var(--blanco);
+    color: var(--verde-oscuro);
+    padding: 14px 36px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none; cursor: pointer;
+    transition: background 0.2s, color 0.2s, transform 0.15s;
+  }
+
+  .btn-primario:hover {
+    background: var(--verde-suave);
+    transform: translateY(-1px);
+  }
+
+  .btn-secundario {
+    background: transparent;
+    color: var(--blanco);
+    padding: 14px 36px;
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: 1px solid rgba(255,255,255,0.45);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .btn-secundario:hover {
+    border-color: var(--blanco);
+    background: rgba(255,255,255,0.08);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    right: 64px;
+    bottom: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.4);
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: rgba(255,255,255,0.25);
+    animation: scrollDown 1.8s ease-in-out infinite;
+  }
+
+  @keyframes scrollDown {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 0.8; transform: scaleY(0.6); }
+  }
+
+  /* ─── STRIP ─── */
+  .strip {
+    background: var(--verde-oscuro);
+    display: flex;
+    justify-content: center;
+    gap: 64px;
+    padding: 18px 32px;
+    overflow-x: auto;
+  }
+
+  .strip-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--verde-suave);
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  .strip-item svg { opacity: 0.7; }
+
+  /* ─── SECCIÓN TÍTULO ─── */
+  .seccion-titulo {
+    text-align: center;
+    padding: 72px 32px 0;
+  }
+
+  .seccion-tag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--verde-medio);
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  .seccion-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 400;
+    line-height: 1.1;
+    color: var(--verde-oscuro);
+  }
+
+  .seccion-h2 em { font-style: italic; }
+
+  /* ─── CATEGORÍAS ─── */
+  .categorias {
+    max-width: 1280px;
+    margin: 48px auto;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .cat-card {
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+
+  .cat-card:nth-child(1) { grid-row: span 2; }
+
+  .cat-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  .cat-card:nth-child(1) .cat-img { height: 100%; aspect-ratio: auto; }
+
+  .cat-card:hover .cat-img { transform: scale(1.04); }
+
+  .cat-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(60,5,20,0.72) 0%, transparent 55%);
+    transition: opacity 0.3s;
+  }
+
+  .cat-card:hover .cat-overlay { opacity: 0.85; }
+
+  .cat-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 28px 24px;
+  }
+
+  .cat-nombre {
+    font-family: var(--font-display);
+    font-size: 22px;
+    font-weight: 400;
+    color: var(--blanco);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+  }
+
+  .cat-ver {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--verde-suave);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+
+  .cat-ver::after {
+    content: '→';
+    font-size: 12px;
+  }
+
+  .cat-card:hover .cat-ver { opacity: 1; transform: translateY(0); }
+
+  /* Colores placeholder para las categorías */
+  .cat-placeholder {
+    width: 100%;
+    display: block;
+    background: var(--verde-suave);
+  }
+
+  .cat-card:nth-child(1) .cat-placeholder { height: 100%; min-height: 540px; background: #c48090; }
+  .cat-card:nth-child(2) .cat-placeholder { aspect-ratio: 3/4; background: #d49aaa; }
+  .cat-card:nth-child(3) .cat-placeholder { aspect-ratio: 3/4; background: #e0b0bc; }
+  .cat-card:nth-child(4) .cat-placeholder { aspect-ratio: 3/4; background: #b86878; }
+  .cat-card:nth-child(5) .cat-placeholder { aspect-ratio: 3/4; background: #cc8898; }
+
+  /* ─── PRODUCTOS DESTACADOS ─── */
+  .productos-section {
+    background: var(--crema);
+    padding: 80px 0;
+    margin-top: 48px;
+  }
+
+  .productos-grid {
+    max-width: 1280px;
+    margin: 48px auto 0;
+    padding: 0 32px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+
+  .prod-card {
+    background: var(--blanco);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prod-img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .prod-img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .prod-placeholder {
+    width: 100%;
+    aspect-ratio: 2/3;
+    display: block;
+    background: var(--verde-suave);
+  }
+
+  .prod-card:nth-child(1) .prod-placeholder { background: #ddb0ba; }
+  .prod-card:nth-child(2) .prod-placeholder { background: #c898a8; }
+  .prod-card:nth-child(3) .prod-placeholder { background: #e4bec6; }
+  .prod-card:nth-child(4) .prod-placeholder { background: #bf8898; }
+
+  .prod-card:hover .prod-img { transform: scale(1.05); }
+
+  .prod-badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    font-weight: 500;
+  }
+
+  .prod-badge.nuevo { background: var(--acento); }
+
+  .prod-acciones {
+    position: absolute;
+    bottom: 12px; right: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    opacity: 0;
+    transform: translateX(8px);
+    transition: opacity 0.25s, transform 0.25s;
+  }
+
+  .prod-card:hover .prod-acciones { opacity: 1; transform: translateX(0); }
+
+  .prod-btn-icono {
+    background: var(--blanco);
+    border: 1px solid #ddd;
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    font-size: 15px;
+    transition: background 0.2s;
+  }
+
+  .prod-btn-icono:hover { background: var(--verde-palido); }
+
+  .prod-info {
+    padding: 16px 16px 20px;
+  }
+
+  .prod-cat {
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--verde-medio);
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+
+  .prod-nombre {
+    font-family: var(--font-display);
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--negro);
+    margin-bottom: 8px;
+    line-height: 1.2;
+  }
+
+  .prod-precio {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--verde-oscuro);
+    letter-spacing: 0.04em;
+  }
+
+  .prod-comprar {
+    display: block;
+    width: calc(100% - 32px);
+    margin: 0 16px 16px;
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+    border: none;
+    padding: 11px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.25s, transform 0.25s, background 0.2s;
+  }
+
+  .prod-card:hover .prod-comprar { opacity: 1; transform: translateY(0); }
+  .prod-comprar:hover { background: var(--verde-medio); }
+
+  /* ─── BANNER NIGHT EDITION ─── */
+  .night-banner {
+    margin: 80px auto;
+    max-width: 1280px;
+    padding: 0 32px;
+  }
+
+  .night-inner {
+    background: var(--verde-oscuro);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 440px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .night-deco {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 200px;
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(255,255,255,0.04);
+    right: -20px;
+    bottom: -40px;
+    pointer-events: none;
+    line-height: 1;
+  }
+
+  .night-texto {
+    padding: 72px 64px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+  }
+
+  .night-tag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--verde-suave);
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .night-titulo {
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 300;
+    line-height: 1.0;
+    color: var(--blanco);
+    margin-bottom: 24px;
+  }
+
+  .night-titulo em { font-style: italic; color: var(--verde-suave); }
+
+  .night-desc {
+    font-size: 13px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.7;
+    margin-bottom: 40px;
+    font-weight: 300;
+    max-width: 320px;
+  }
+
+  .night-img {
+    background: linear-gradient(135deg, #4a0d1c 0%, #380a15 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .night-img-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(160deg, #5a1020 0%, #2a0810 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ─── MARCADORES CATEGORÍA ─── */
+  .cat-chips {
+    max-width: 1280px;
+    margin: 0 auto 64px;
+    padding: 0 32px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .cat-chip {
+    border: 1px solid #ccc;
+    padding: 8px 20px;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--gris-texto);
+    background: transparent;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .cat-chip:hover, .cat-chip.activo {
+    background: var(--verde-oscuro);
+    color: var(--blanco);
+    border-color: var(--verde-oscuro);
+  }
+
+  /* ─── BANNER PROMO ─── */
+  .promo-strip {
+    background: var(--verde-palido);
+    border-top: 1px solid var(--verde-suave);
+    border-bottom: 1px solid var(--verde-suave);
+    padding: 40px 32px;
+    text-align: center;
+    margin: 32px 0 64px;
+  }
+
+  .promo-strip p {
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--verde-oscuro);
+    font-weight: 500;
+  }
+
+  .promo-strip span { color: var(--acento); font-weight: 600; }
+
+  /* ─── NEWSLETTER ─── */
+  .newsletter {
+    background: var(--verde-oscuro);
+    padding: 80px 32px;
+    text-align: center;
+  }
+
+  .newsletter-tag {
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--verde-suave);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .newsletter-titulo {
+    font-family: var(--font-display);
+    font-size: 42px;
+    font-weight: 300;
+    color: var(--blanco);
+    margin-bottom: 12px;
+  }
+
+  .newsletter-titulo em { font-style: italic; }
+
+  .newsletter-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 36px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  .newsletter-form {
+    display: flex;
+    max-width: 420px;
+    margin: 0 auto;
+    gap: 0;
+  }
+
+  .newsletter-input {
+    flex: 1;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.07);
+    color: var(--blanco);
+    padding: 14px 20px;
+    font-family: var(--font-body);
+    font-size: 12px;
+    outline: none;
+    letter-spacing: 0.05em;
+    transition: border-color 0.2s;
+  }
+
+  .newsletter-input::placeholder { color: rgba(255,255,255,0.35); }
+  .newsletter-input:focus { border-color: rgba(255,255,255,0.5); }
+
+  .newsletter-btn {
+    background: var(--blanco);
+    color: var(--verde-oscuro);
+    border: none;
+    padding: 14px 28px;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .newsletter-btn:hover { background: var(--verde-suave); }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: #1a0508;
+    color: rgba(255,255,255,0.5);
+    padding: 64px 32px 32px;
+  }
+
+  .footer-grid {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .footer-brand {
+    font-family: var(--font-display);
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    color: var(--blanco);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .footer-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    margin-bottom: 28px;
+  }
+
+  .footer-social {
+    display: flex;
+    gap: 16px;
+  }
+
+  .footer-social a {
+    color: rgba(255,255,255,0.4);
+    font-size: 16px;
+    transition: color 0.2s;
+    text-decoration: none;
+    width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,0.12);
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .footer-social a:hover { color: var(--verde-suave); border-color: var(--verde-suave); }
+
+  .footer-col h4 {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--blanco);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+
+  .footer-col a {
+    color: rgba(255,255,255,0.45);
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--verde-suave); }
+
+  .footer-bottom {
+    max-width: 1280px;
+    margin: 32px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  /* ─── MÓVIL ─── */
+  @media (max-width: 900px) {
+    .header-inner {
+      grid-template-columns: auto 1fr auto;
+      padding: 0 20px;
+    }
+    .nav-left { display: none; }
+    .nav-right { display: none; }
+    .nav-icons { display: flex; }
+    .categorias {
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .cat-card:nth-child(1) { grid-column: span 2; grid-row: span 1; }
+    .cat-card:nth-child(1) .cat-placeholder { min-height: 280px; }
+    .productos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .night-inner { grid-template-columns: 1fr; }
+    .night-img { display: none; }
+    .night-texto { padding: 48px 32px; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .hero-content { padding: 0 28px 60px; }
+    .hero-scroll { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BARRA SUPERIOR -->
+<div class="topbar">
+  ✦ &nbsp; ENVÍOS A TODO EL PAÍS &nbsp; · &nbsp; PRECIOS EN EFECTIVO / TRANSFERENCIA &nbsp; · &nbsp; CONSULTÁ OPCIONES EN TARJETA &nbsp; ✦
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <!-- NAV IZQUIERDA -->
+    <ul class="nav-left">
+      <li><a href="https://chapulinatuc.mitiendanube.com/productos">Inicio</a></li>
+      <li class="dropdown">
+        <a href="https://chapulinatuc.mitiendanube.com/productos" class="dropdown-toggle">Productos</a>
+        <div class="dropdown-menu">
+          <a href="https://chapulinatuc.mitiendanube.com/productos" class="ver-todo">Ver todo</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Vestidos y monos</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Parte inferior</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Remeras y tops</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Camisas y blusas</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Night edition</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Blazers y chalecos</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Abrigos</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Accesorios</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Magic box</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="https://chapulinatuc.mitiendanube.com/productos" class="dropdown-toggle">Información</a>
+        <div class="dropdown-menu">
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Cambios y devoluciones</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Medios de pago</a>
+          <a href="https://chapulinatuc.mitiendanube.com/productos">Preguntas frecuentes</a>
+        </div>
+      </li>
+    </ul>
+
+    <!-- LOGO -->
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="brand">Chapulina</a>
+
+    <!-- NAV DERECHA -->
+    <ul class="nav-right">
+      <li><a href="https://chapulinatuc.mitiendanube.com/productos">Contacto</a></li>
+      <li>
+        <div class="nav-icons">
+          <button class="nav-icon" aria-label="Buscar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </button>
+          <button class="nav-icon" aria-label="Mi cuenta">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          </button>
+          <button class="nav-icon" aria-label="Carrito" style="position:relative">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-badge">0</span>
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">Chapulina</div>
+  <div class="hero-content">
+    <p class="hero-tag">Nueva colección · Otoño 2025</p>
+    <h1 class="hero-titulo">Vestite<br>como <em>quieras<br>sentirte</em></h1>
+    <p class="hero-subtitulo">Moda femenina pensada desde Tucumán para todo el país.</p>
+    <div class="hero-btns">
+      <a href="https://chapulinatuc.mitiendanube.com/productos" class="btn-primario">Ver colección</a>
+      <a href="https://chapulinatuc.mitiendanube.com/productos" class="btn-secundario">Night edition</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    scroll
+  </div>
+</section>
+
+<!-- STRIP BENEFICIOS -->
+<div class="strip">
+  <div class="strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    Envíos a todo el país
+  </div>
+  <div class="strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+    Cambios sin costo
+  </div>
+  <div class="strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+    Múltiples medios de pago
+  </div>
+  <div class="strip-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12"/></svg>
+    Atención personalizada
+  </div>
+</div>
+
+<!-- CATEGORÍAS -->
+<div class="seccion-titulo">
+  <p class="seccion-tag">Explorá por categoría</p>
+  <h2 class="seccion-h2">Encontrá tu <em>estilo</em></h2>
+</div>
+
+<div class="categorias">
+  <!-- Card grande -->
+  <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-card">
+    <div class="cat-placeholder"></div>
+    <div class="cat-overlay"></div>
+    <div class="cat-info">
+      <div class="cat-nombre">Vestidos y monos</div>
+      <div class="cat-ver">Ver todo</div>
+    </div>
+  </a>
+  <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-card">
+    <div class="cat-placeholder"></div>
+    <div class="cat-overlay"></div>
+    <div class="cat-info">
+      <div class="cat-nombre">Remeras y tops</div>
+      <div class="cat-ver">Ver todo</div>
+    </div>
+  </a>
+  <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-card">
+    <div class="cat-placeholder"></div>
+    <div class="cat-overlay"></div>
+    <div class="cat-info">
+      <div class="cat-nombre">Camisas y blusas</div>
+      <div class="cat-ver">Ver todo</div>
+    </div>
+  </a>
+  <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-card">
+    <div class="cat-placeholder"></div>
+    <div class="cat-overlay"></div>
+    <div class="cat-info">
+      <div class="cat-nombre">Blazers y chalecos</div>
+      <div class="cat-ver">Ver todo</div>
+    </div>
+  </a>
+  <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-card">
+    <div class="cat-placeholder"></div>
+    <div class="cat-overlay"></div>
+    <div class="cat-info">
+      <div class="cat-nombre">Accesorios</div>
+      <div class="cat-ver">Ver todo</div>
+    </div>
+  </a>
+</div>
+
+<!-- PROMO STRIP -->
+<div class="promo-strip">
+  <p>MAGIC BOX — <span>¡SORPRENDETE!</span> — Comprá tu caja mágica y descubrí piezas seleccionadas con hasta 50% off</p>
+</div>
+
+<!-- PRODUCTOS DESTACADOS -->
+<section class="productos-section">
+  <div class="seccion-titulo">
+    <p class="seccion-tag">Selección de la temporada</p>
+    <h2 class="seccion-h2">Productos <em>destacados</em></h2>
+  </div>
+
+  <!-- CHIPS FILTRO -->
+  <div class="cat-chips" style="margin-top: 36px;">
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-chip activo">Todo</a>
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-chip">Vestidos</a>
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-chip">Tops</a>
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-chip">Parte inferior</a>
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-chip">Night edition</a>
+    <a href="https://chapulinatuc.mitiendanube.com/productos" class="cat-chip">Accesorios</a>
+  </div>
+
+  <div class="productos-grid">
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-placeholder"></div>
+        <span class="prod-badge nuevo">Nuevo</span>
+        <div class="prod-acciones">
+          <button class="prod-btn-icono" aria-label="Favorito">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Vestidos y monos</p>
+        <p class="prod-nombre">Vestido midi flores</p>
+        <p class="prod-precio">$22.500</p>
+      </div>
+      <button class="prod-comprar">Agregar al carrito</button>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-placeholder"></div>
+        <span class="prod-badge">Night</span>
+        <div class="prod-acciones">
+          <button class="prod-btn-icono" aria-label="Favorito">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Night edition</p>
+        <p class="prod-nombre">Blusa satén luxury</p>
+        <p class="prod-precio">$18.000</p>
+      </div>
+      <button class="prod-comprar">Agregar al carrito</button>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-placeholder"></div>
+        <span class="prod-badge nuevo">Nuevo</span>
+        <div class="prod-acciones">
+          <button class="prod-btn-icono" aria-label="Favorito">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Remeras y tops</p>
+        <p class="prod-nombre">Top drapeado modal</p>
+        <p class="prod-precio">$9.800</p>
+      </div>
+      <button class="prod-comprar">Agregar al carrito</button>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-img-wrap">
+        <div class="prod-placeholder"></div>
+        <div class="prod-acciones">
+          <button class="prod-btn-icono" aria-label="Favorito">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="prod-info">
+        <p class="prod-cat">Blazers y chalecos</p>
+        <p class="prod-nombre">Blazer oversize verde</p>
+        <p class="prod-precio">$31.000</p>
+      </div>
+      <button class="prod-comprar">Agregar al carrito</button>
+    </div>
+  </div>
+</section>
+
+<!-- BANNER NIGHT EDITION -->
+<div class="night-banner">
+  <div class="night-inner">
+    <div class="night-texto">
+      <p class="night-tag">Colección especial</p>
+      <h2 class="night-titulo">Night<br><em>Edition</em></h2>
+      <p class="night-desc">Piezas pensadas para brillar. Satenes, bordados y siluetas que hacen que cada noche sea un momento.</p>
+      <a href="https://chapulinatuc.mitiendanube.com/productos" class="btn-primario">Explorar colección</a>
+    </div>
+    <div class="night-img">
+      <div class="night-img-placeholder"></div>
+    </div>
+    <div class="night-deco">✦</div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <p class="newsletter-tag">Comunidad Chapulina</p>
+  <h2 class="newsletter-titulo">Sumate a nuestra <em>lista</em></h2>
+  <p class="newsletter-sub">Enterate primero de los nuevos ingresos, promociones y novedades.</p>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" placeholder="Tu e-mail" />
+    <button class="newsletter-btn">Suscribirse</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <span class="footer-brand">Chapulina</span>
+      <p class="footer-desc">Moda femenina con personalidad, pensada para la mujer de hoy. Enviamos a todo el país.</p>
+      <div class="footer-social">
+        <a href="https://chapulinatuc.mitiendanube.com/productos" aria-label="Instagram">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://chapulinatuc.mitiendanube.com/productos" aria-label="WhatsApp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+        </a>
+        <a href="https://chapulinatuc.mitiendanube.com/productos" aria-label="Facebook">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Tienda</h4>
+      <ul>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Nuevos ingresos</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Vestidos y monos</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Parte inferior</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Remeras y tops</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Night edition</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Magic box</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Información</h4>
+      <ul>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Cómo comprar</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Medios de pago</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Envíos</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Cambios</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Preguntas frecuentes</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contacto</h4>
+      <ul>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">WhatsApp</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Instagram</a></li>
+        <li><a href="https://chapulinatuc.mitiendanube.com/productos">Email</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Chapulina. Todos los derechos reservados.</span>
+    <span>Hecho con amor en Tucumán 🌿</span>
+  </div>
+</footer>
+
+<script>
+  // Chips de filtro
+  document.querySelectorAll('.cat-chip').forEach(chip => {
+    chip.addEventListener('click', function(e) {
+      e.preventDefault();
+      document.querySelectorAll('.cat-chip').forEach(c => c.classList.remove('activo'));
+      this.classList.add('activo');
+    });
+  });
+</script>
+
+</body>
+</html>
