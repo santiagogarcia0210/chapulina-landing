@@ -159,7 +159,8 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; scroll-padding-top: 110px; }
+  html { scroll-behavior: smooth; scroll-padding-top: 110px; overflow-x: hidden; }
+  html, body { max-width: 100%; position: relative; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
   body {
@@ -373,6 +374,47 @@
     .cart-badge.pop { animation: badgePop 0.35s var(--ease-out); }
     @keyframes badgePop { 0% { transform: scale(1); } 40% { transform: scale(1.45); } 100% { transform: scale(1); } }
   }
+
+  /* --- BUSCADOR (panel desplegable) --- */
+  .search-bar {
+    background: var(--blanco);
+    border-bottom: 1px solid var(--borde-claro);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s var(--ease-out);
+  }
+  .search-bar.abierto { max-height: 96px; }
+  .search-bar form {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex; gap: 12px;
+  }
+  .search-bar input {
+    flex: 1;
+    border: 1px solid var(--borde-medio);
+    background: var(--blanco);
+    padding: 12px 16px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    outline: none;
+    border-radius: 0;
+    transition: border-color 0.2s ease-out;
+  }
+  .search-bar input:focus { border-color: var(--burdeos-600); }
+  .search-bar button {
+    background: var(--burdeos-800);
+    color: var(--blanco);
+    border: none;
+    padding: 0 26px;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    transition: background 0.2s ease-out;
+  }
+  .search-bar button:hover { background: var(--burdeos-600); }
 
   /* Menú móvil */
   .menu-btn { display: none; }
@@ -859,6 +901,47 @@
   }
   .historia-cita .glifo { font-style: normal; font-size: 13px; vertical-align: 4px; margin-right: 12px; }
 
+  /* --- INFORMACIÓN (acordeón) --- */
+  .info { background: var(--blanco); padding: 0 32px 96px; }
+  .info-acordeon {
+    max-width: 760px;
+    margin: 48px auto 0;
+    border-top: 1px solid var(--borde-claro);
+  }
+  .info-acordeon details { border-bottom: 1px solid var(--borde-claro); }
+  .info-acordeon summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 4px;
+    font-family: var(--font-display);
+    font-size: 22px; font-weight: 400;
+    color: var(--burdeos-800);
+    display: flex; justify-content: space-between; align-items: center;
+    gap: 16px;
+    transition: color 0.2s ease-out;
+  }
+  .info-acordeon summary::-webkit-details-marker { display: none; }
+  .info-acordeon summary::after {
+    content: '+';
+    font-family: var(--font-body);
+    font-size: 24px; font-weight: 300;
+    color: var(--burdeos-600);
+    transition: transform 0.25s var(--ease-out);
+  }
+  .info-acordeon details[open] summary::after { transform: rotate(45deg); }
+  .info-acordeon summary:hover { color: var(--burdeos-600); }
+  .info-cuerpo {
+    padding: 0 4px 26px;
+    font-size: 13px;
+    line-height: 1.85;
+    color: var(--gris-texto);
+    letter-spacing: 0.03em;
+    max-width: 660px;
+  }
+  .info-cuerpo a { color: var(--burdeos-600); font-weight: 600; text-decoration: none; }
+  .info-cuerpo a:hover { text-decoration: underline; }
+  .info-cuerpo strong { color: var(--negro); font-weight: 600; }
+
   /* --- NEWSLETTER --- */
   .newsletter { background: var(--burdeos-800); padding: 96px 32px; text-align: center; }
   .newsletter-tag {
@@ -997,6 +1080,12 @@
       border-bottom: 1px solid var(--borde-claro);
     }
     .mobile-menu a:active { background: var(--rosa-50); }
+    /* Bloquear desplazamiento lateral: solo scroll vertical */
+    html, body { overflow-x: hidden; width: 100%; }
+    .strip { flex-direction: column; align-items: center; gap: 10px; overflow-x: hidden; }
+    .search-bar form { padding: 14px 20px; }
+    .info { padding: 0 20px 72px; }
+    .info-acordeon summary { font-size: 19px; }
     .categorias { grid-template-columns: 1fr 1fr; gap: 12px; }
     .cat-card:nth-child(1) { grid-column: span 2; grid-row: span 1; }
     .productos-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
@@ -1058,9 +1147,9 @@
       <li class="dropdown">
         <a href="#informacion" class="dropdown-toggle">Información</a>
         <div class="dropdown-menu">
-          <a href="https://chapulina.mitiendanube.com/politica-de-devolucion/" target="_blank" rel="noopener">Cambios y devoluciones</a>
-          <a href="#informacion">Medios de pago</a>
-          <a href="#informacion">Preguntas frecuentes</a>
+          <a href="#info-cambios">Cambios y devoluciones</a>
+          <a href="#info-pagos">Medios de pago</a>
+          <a href="#info-faq">Preguntas frecuentes</a>
         </div>
       </li>
     </ul>
@@ -1069,19 +1158,24 @@
       <li><a href="#contacto">Contacto</a></li>
       <li>
         <div class="nav-icons">
-          <button class="nav-icon" aria-label="Buscar">
+          <button class="nav-icon" aria-label="Buscar" id="searchBtn" aria-expanded="false" aria-controls="searchBar">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
-          <button class="nav-icon" aria-label="Mi cuenta">
+          <a class="nav-icon" aria-label="Mi cuenta" href="https://chapulina.mitiendanube.com/account/login/" target="_blank" rel="noopener">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-          </button>
-          <button class="nav-icon" aria-label="Carrito" id="cartBtn">
+          </a>
+          <a class="nav-icon" aria-label="Carrito" href="https://chapulina.mitiendanube.com/comprar/" target="_blank" rel="noopener" id="cartBtn">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-            <span class="cart-badge" id="cartBadge">0</span>
-          </button>
+          </a>
         </div>
       </li>
     </ul>
+  </div>
+  <div class="search-bar" id="searchBar">
+    <form action="https://chapulina.mitiendanube.com/search/" method="get" target="_blank" rel="noopener">
+      <input type="search" name="q" placeholder="Buscar productos…" aria-label="Buscar productos">
+      <button type="submit">Buscar</button>
+    </form>
   </div>
   <nav class="mobile-menu" id="mobileMenu">
     <a href="#inicio">Inicio</a>
@@ -1376,6 +1470,48 @@
   </div>
 </section>
 
+<!-- INFORMACIÓN -->
+<section class="info" id="informacion" data-screen-label="Información">
+  <div class="seccion-titulo">
+    <p class="seccion-tag">Todo lo que necesitás saber</p>
+    <h2 class="seccion-h2">Información <em>útil</em></h2>
+  </div>
+  <div class="info-acordeon">
+    <details id="info-comprar" open>
+      <summary>Cómo comprar</summary>
+      <div class="info-cuerpo">
+        <p>Elegí tus prendas favoritas en nuestra <a href="https://chapulina.mitiendanube.com/productos/" target="_blank" rel="noopener">tienda online</a>, seleccioná color y talle, y agregalas al carrito. Cuando termines, finalizá la compra y elegí el medio de pago y envío. Cualquier duda, escribinos por <a href="https://wa.me/5493816299256" target="_blank" rel="noopener">WhatsApp</a> y te ayudamos.</p>
+      </div>
+    </details>
+    <details id="info-pagos">
+      <summary>Medios de pago</summary>
+      <div class="info-cuerpo">
+        <p>Aceptamos <strong>tarjetas de crédito y débito</strong> (los precios publicados son precio de lista con tarjeta). Pagando por <strong>transferencia o depósito</strong> tenés un <strong>15% de descuento</strong>. Consultanos por opciones de cuotas con tarjeta.</p>
+      </div>
+    </details>
+    <details id="info-envios">
+      <summary>Envíos</summary>
+      <div class="info-cuerpo">
+        <p><strong>Enviamos a todo el país.</strong> Coordinamos el envío una vez confirmada tu compra. Los costos y tiempos dependen de tu localidad — consultanos por <a href="https://wa.me/5493816299256" target="_blank" rel="noopener">WhatsApp</a> antes o después de comprar.</p>
+      </div>
+    </details>
+    <details id="info-cambios">
+      <summary>Cambios y devoluciones</summary>
+      <div class="info-cuerpo">
+        <p>Podés cambiar tu prenda dentro de los plazos establecidos. Conocé todos los detalles en nuestra <a href="https://chapulina.mitiendanube.com/politica-de-devolucion/" target="_blank" rel="noopener">política de cambios y devoluciones</a>.</p>
+      </div>
+    </details>
+    <details id="info-faq">
+      <summary>Preguntas frecuentes</summary>
+      <div class="info-cuerpo">
+        <p><strong>¿Tienen local físico?</strong> Trabajamos principalmente online y enviamos a todo el país. Escribinos por <a href="https://instagram.com/bychapulina" target="_blank" rel="noopener">Instagram</a> o <a href="https://wa.me/5493816299256" target="_blank" rel="noopener">WhatsApp</a> para consultas.</p>
+        <p><strong>¿Cómo sé mi talle?</strong> Cada producto indica sus medidas en la descripción. Si tenés dudas, consultanos y te asesoramos.</p>
+        <p><strong>¿Cuánto tarda en llegar?</strong> Depende de tu localidad; te confirmamos el tiempo estimado al coordinar el envío.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
 <!-- NEWSLETTER -->
 <section class="newsletter" data-screen-label="Newsletter">
   <p class="newsletter-tag">Comunidad Chapulina</p>
@@ -1401,9 +1537,6 @@
         <a href="https://wa.me/5493816299256" aria-label="WhatsApp">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
         </a>
-        <a href="#facebook" aria-label="Facebook">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-        </a>
       </div>
     </div>
     <div class="footer-col">
@@ -1420,11 +1553,11 @@
     <div class="footer-col">
       <h4>Información</h4>
       <ul>
-        <li><a href="#informacion">Cómo comprar</a></li>
-        <li><a href="#informacion">Medios de pago</a></li>
-        <li><a href="#informacion">Envíos</a></li>
-        <li><a href="https://chapulina.mitiendanube.com/politica-de-devolucion/" target="_blank" rel="noopener">Cambios</a></li>
-        <li><a href="#informacion">Preguntas frecuentes</a></li>
+        <li><a href="#info-comprar">Cómo comprar</a></li>
+        <li><a href="#info-pagos">Medios de pago</a></li>
+        <li><a href="#info-envios">Envíos</a></li>
+        <li><a href="#info-cambios">Cambios</a></li>
+        <li><a href="#info-faq">Preguntas frecuentes</a></li>
       </ul>
     </div>
     <div class="footer-col">
@@ -1517,21 +1650,48 @@
     });
   })();
 
-  // — Carrito + favoritos —
+  // — Agregar al carrito → abre el producto en la tienda (ahí se elige color/talle) —
   (function () {
-    const badge = document.getElementById('cartBadge');
-    let count = 0;
-    document.querySelectorAll('.prod-comprar').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        count += 1;
-        badge.textContent = count;
-        badge.classList.remove('pop');
-        void badge.offsetWidth;
-        badge.classList.add('pop');
-      });
+    document.querySelectorAll('.prod-card').forEach((card) => {
+      const link = card.querySelector('.prod-link');
+      const comprar = card.querySelector('.prod-comprar');
+      if (link && comprar) {
+        comprar.addEventListener('click', () => window.open(link.href, '_blank', 'noopener'));
+      }
     });
     document.querySelectorAll('.prod-btn-icono').forEach((btn) => {
       btn.addEventListener('click', () => btn.classList.toggle('fav'));
+    });
+  })();
+
+  // — Buscador (panel desplegable) —
+  (function () {
+    const btn = document.getElementById('searchBtn');
+    const bar = document.getElementById('searchBar');
+    if (!btn || !bar) return;
+    const input = bar.querySelector('input');
+    btn.addEventListener('click', () => {
+      const open = bar.classList.toggle('abierto');
+      btn.setAttribute('aria-expanded', String(open));
+      if (open) setTimeout(() => input.focus(), 100);
+    });
+  })();
+
+  // — Abrir el ítem de Información correspondiente al hacer click en un ancla #info- —
+  (function () {
+    function abrirDesdeHash() {
+      const id = location.hash.slice(1);
+      if (!id) return;
+      const el = document.getElementById(id);
+      if (el && el.tagName === 'DETAILS') el.open = true;
+    }
+    window.addEventListener('hashchange', abrirDesdeHash);
+    abrirDesdeHash();
+    document.querySelectorAll('a[href^="#info-"]').forEach((a) => {
+      a.addEventListener('click', () => {
+        const el = document.getElementById(a.getAttribute('href').slice(1));
+        if (el && el.tagName === 'DETAILS') el.open = true;
+      });
     });
   })();
 
