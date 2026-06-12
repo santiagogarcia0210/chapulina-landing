@@ -621,6 +621,18 @@
   }
   .cat-chip:active { transform: scale(0.97); }
 
+  .precio-nota {
+    max-width: var(--container-max);
+    margin: 18px auto 0;
+    padding: 0 32px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--gris-texto);
+    font-weight: 400;
+  }
+  .precio-nota strong { color: var(--burdeos-600); font-weight: 600; }
+
   .productos-grid {
     max-width: var(--container-max);
     margin: 48px auto 0;
@@ -1186,6 +1198,8 @@
     <button class="cat-chip" data-filtro="night">Night edition</button>
     <button class="cat-chip" data-filtro="accesorios">Accesorios</button>
   </div>
+
+  <p class="precio-nota">Precios con tarjeta · <strong>15% off</strong> pagando por transferencia o depósito</p>
 
   <div class="productos-grid" id="prodGrid" data-stagger>
     <div class="prod-card" data-cat="tops">
