@@ -1077,7 +1077,7 @@
       max-height: 0;
       transition: max-height 0.35s var(--ease-out);
     }
-    .mobile-menu.abierto { max-height: 420px; }
+    .mobile-menu.abierto { max-height: 80vh; overflow-y: auto; }
     .mobile-menu a {
       display: block;
       padding: 14px 24px;
@@ -1090,6 +1090,23 @@
       border-bottom: 1px solid var(--borde-claro);
     }
     .mobile-menu a:active { background: var(--rosa-50); }
+    .mobile-label {
+      display: block;
+      padding: 14px 24px 6px;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--burdeos-600);
+    }
+    .mobile-menu a.mobile-sub {
+      padding: 11px 24px 11px 40px;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: none;
+      font-weight: 400;
+      color: var(--gris-texto);
+    }
     /* Bloquear desplazamiento lateral: solo scroll vertical */
     html, body { overflow-x: hidden; width: 100%; }
     .strip { flex-direction: column; align-items: center; gap: 10px; overflow-x: hidden; }
@@ -1195,8 +1212,16 @@
   </div>
   <nav class="mobile-menu" id="mobileMenu">
     <a href="#inicio">Inicio</a>
-    <a href="#productos">Productos</a>
-    <a href="#night">Night edition</a>
+    <span class="mobile-label">Productos</span>
+    <a href="https://chapulina.mitiendanube.com/productos/" target="_blank" rel="noopener" class="mobile-sub">Ver todo</a>
+    <a href="https://chapulina.mitiendanube.com/vestidos-y-monos/" target="_blank" rel="noopener" class="mobile-sub">Vestidos y monos</a>
+    <a href="https://chapulina.mitiendanube.com/parte-inferior/" target="_blank" rel="noopener" class="mobile-sub">Parte inferior</a>
+    <a href="https://chapulina.mitiendanube.com/remeras-y-tops/" target="_blank" rel="noopener" class="mobile-sub">Remeras y tops</a>
+    <a href="https://chapulina.mitiendanube.com/camisas-y-blusas/" target="_blank" rel="noopener" class="mobile-sub">Camisas y blusas</a>
+    <a href="https://chapulina.mitiendanube.com/night-edition/" target="_blank" rel="noopener" class="mobile-sub">Night edition</a>
+    <a href="https://chapulina.mitiendanube.com/blazers-y-chalecos/" target="_blank" rel="noopener" class="mobile-sub">Blazers y chalecos</a>
+    <a href="https://chapulina.mitiendanube.com/abrigos/" target="_blank" rel="noopener" class="mobile-sub">Abrigos</a>
+    <a href="https://chapulina.mitiendanube.com/accesorios/" target="_blank" rel="noopener" class="mobile-sub">Accesorios</a>
     <a href="#informacion">Información</a>
     <a href="#contacto">Contacto</a>
   </nav>
