@@ -328,6 +328,16 @@
     transition: opacity 0.25s var(--ease-out), transform 0.25s var(--ease-out),
                 visibility 0s linear 0.25s;
   }
+  /* Puente invisible que cubre el hueco entre el toggle y el menú,
+     para que el :hover no se pierda al mover el cursor hacia abajo */
+  .dropdown-menu::before {
+    content: '';
+    position: absolute;
+    top: -18px;
+    left: 0;
+    right: 0;
+    height: 18px;
+  }
   .dropdown:hover .dropdown-menu, .dropdown:focus-within .dropdown-menu {
     opacity: 1; visibility: visible; pointer-events: auto;
     transform: translate(-50%, 0);
